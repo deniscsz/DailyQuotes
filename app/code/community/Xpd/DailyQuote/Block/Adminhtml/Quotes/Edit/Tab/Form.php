@@ -9,6 +9,16 @@ class Xpd_DailyQuote_Block_Adminhtml_Quotes_Edit_Tab_Form extends Mage_Adminhtml
 				$fieldset = $form->addFieldset("dailyquote_form", array("legend"=>Mage::helper("dailyquote")->__("Item information")));
 
 				
+						$fieldset->addField("quote_title", "text", array(
+						"label" => Mage::helper("dailyquote")->__("Title"),
+						"name" => "quote_title",
+						));
+					
+						$fieldset->addField("quote_text", "text", array(
+						"label" => Mage::helper("dailyquote")->__("Quote"),
+						"name" => "quote_text",
+						));
+					
 
 				if (Mage::getSingleton("adminhtml/session")->getQuotesData())
 				{

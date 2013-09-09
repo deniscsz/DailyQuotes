@@ -128,6 +128,22 @@ class Xpd_DailyQuote_Adminhtml_QuotesController extends Mage_Adminhtml_Controlle
 		}
 
 		
+		public function massRemoveAction()
+		{
+			try {
+				$ids = $this->getRequest()->getPost('quote_ids', array());
+				foreach ($ids as $id) {
+                      $model = Mage::getModel("dailyquote/quotes");
+					  $model->setId($id)->delete();
+				}
+				Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item(s) was successfully removed"));
+			}
+			catch (Exception $e) {
+				Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
+			}
+			$this->_redirect('*/*/');
+		}
+			
 		/**
 		 * Export order grid to CSV format
 		 */

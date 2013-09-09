@@ -28,6 +28,14 @@ class Xpd_DailyQuote_Block_Adminhtml_Quotes_Grid extends Mage_Adminhtml_Block_Wi
 				"index" => "quote_id",
 				));
                 
+				$this->addColumn("quote_title", array(
+				"header" => Mage::helper("dailyquote")->__("Title"),
+				"index" => "quote_title",
+				));
+				$this->addColumn("quote_text", array(
+				"header" => Mage::helper("dailyquote")->__("Quote"),
+				"index" => "quote_text",
+				));
 			$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV')); 
 			$this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
 
@@ -41,5 +49,18 @@ class Xpd_DailyQuote_Block_Adminhtml_Quotes_Grid extends Mage_Adminhtml_Block_Wi
 
 
 		
+		protected function _prepareMassaction()
+		{
+			$this->setMassactionIdField('quote_id');
+			$this->getMassactionBlock()->setFormFieldName('quote_ids');
+			$this->getMassactionBlock()->setUseSelectAll(true);
+			$this->getMassactionBlock()->addItem('remove_quotes', array(
+					 'label'=> Mage::helper('dailyquote')->__('Remove Quotes'),
+					 'url'  => $this->getUrl('*/adminhtml_quotes/massRemove'),
+					 'confirm' => Mage::helper('dailyquote')->__('Are you sure?')
+				));
+			return $this;
+		}
+			
 
 }
