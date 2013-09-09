@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Xpd_DailyQuote>
+      <version>1.0.0</version>
+    </Xpd_DailyQuote>
+  </modules>
+  <global>
+    <helpers>
+      <dailyquote>
+        <class>Xpd_DailyQuote_Helper</class>
+      </dailyquote>
+    </helpers>
+	<blocks>
+	  <dailyquote>
+		<class>Xpd_DailyQuote_Block</class>
+	  </dailyquote>
+	</blocks>
+	<models>
+	  <dailyquote>
+		<class>Xpd_DailyQuote_Model</class>
+		<resourceModel>dailyquote_mysql4</resourceModel>
+	  </dailyquote>
+	  <dailyquote_mysql4>
+		<class>Xpd_DailyQuote_Model_Mysql4</class>
+		<entities>		  
+			  <quotes>
+				<table>xpd_dailyquote</table>
+			  </quotes>
+        </entities>
+	  </dailyquote_mysql4>
+	</models>
+	<resources>
+	  <dailyquote_setup>
+		<setup>
+		  <module>Xpd_DailyQuote</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </dailyquote_setup>
+	  <dailyquote_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </dailyquote_write>
+	  <dailyquote_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </dailyquote_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <dailyquote>
+	    <use>admin</use>
+		<args>
+		  <module>Xpd_DailyQuote</module>
+		  <frontName>dailyquote</frontName>
+		</args>
+	  </dailyquote>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <dailyquote module="dailyquote">
+		<title>DailyQuote</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <dailyquotebackend module="dailyquote">
+			<title>Daily Quotes</title>
+			<sort_order>0</sort_order>
+			<action>dailyquote/adminhtml_dailyquotebackend</action>
+		  </dailyquotebackend>
+		  <quotes module="dailyquote">
+		    <title>Manage Quotes</title>
+			<sort_order>0</sort_order>
+			<action>dailyquote/adminhtml_quotes</action>
+		  </quotes>
+		</children>
+	  </dailyquote>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<dailyquote translate="title" module="dailyquote">
+			  <title>DailyQuote</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <dailyquotebackend translate="title">
+			<title>Daily Quotes</title>
+		  </dailyquotebackend>
+		  <quotes translate="title">
+			<title>Manage Quotes</title>
+			<sort_order>0</sort_order>
+		  </quotes>
+			  </children>
+			</dailyquote>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<dailyquote>
+		  <file>dailyquote.xml</file>
+		</dailyquote>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

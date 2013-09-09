@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <dailyquote_adminhtml_dailyquotebackend_index>
+	<reference name="content">
+	  <block type="dailyquote/adminhtml_dailyquotebackend" name="dailyquotebackend" template="dailyquote/dailyquotebackend.phtml"/>
+	</reference>
+  </dailyquote_adminhtml_dailyquotebackend_index>
+  <dailyquote_adminhtml_quotes_index>
+	<reference name="content">
+	  <block type="dailyquote/adminhtml_quotes" name="quotes" />
+	</reference>
+  </dailyquote_adminhtml_quotes_index>
+</layout>
