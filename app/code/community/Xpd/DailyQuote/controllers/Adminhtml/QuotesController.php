@@ -4,146 +4,151 @@ class Xpd_DailyQuote_Adminhtml_QuotesController extends Mage_Adminhtml_Controlle
 {
 		protected function _initAction()
 		{
-				$this->loadLayout()->_setActiveMenu("dailyquote/quotes")->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes  Manager"),Mage::helper("adminhtml")->__("Quotes Manager"));
-				return $this;
+			$this->loadLayout()->_setActiveMenu("dailyquote/quotes")->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes  Manager"),Mage::helper("adminhtml")->__("Quotes Manager"));
+			return $this;
 		}
+        
 		public function indexAction() 
 		{
-			    $this->_title($this->__("DailyQuote"));
-			    $this->_title($this->__("Manager Quotes"));
+		    $this->_title($this->__("DailyQuote"));
+		    $this->_title($this->__("Manager Quotes"));
 
-				$this->_initAction();
-				$this->renderLayout();
+			$this->_initAction();
+			$this->renderLayout();
 		}
+        
 		public function editAction()
 		{			    
-			    $this->_title($this->__("DailyQuote"));
-				$this->_title($this->__("Quotes"));
-			    $this->_title($this->__("Edit Item"));
-				
-				$id = $this->getRequest()->getParam("id");
-				$model = Mage::getModel("dailyquote/quotes")->load($id);
-				if ($model->getId()) {
-					Mage::register("quotes_data", $model);
-					$this->loadLayout();
-					$this->_setActiveMenu("dailyquote/quotes");
-					$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Manager"), Mage::helper("adminhtml")->__("Quotes Manager"));
-					$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Description"), Mage::helper("adminhtml")->__("Quotes Description"));
-					$this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
-					$this->_addContent($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit"))->_addLeft($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit_tabs"));
-					$this->renderLayout();
-				} 
-				else {
-					Mage::getSingleton("adminhtml/session")->addError(Mage::helper("dailyquote")->__("Item does not exist."));
-					$this->_redirect("*/*/");
-				}
+		    $this->_title($this->__("DailyQuote"));
+			$this->_title($this->__("Quotes"));
+		    $this->_title($this->__("Edit Item"));
+			
+			$id = $this->getRequest()->getParam("id");
+			$model = Mage::getModel("dailyquote/quotes")->load($id);
+			if ($model->getId()) {
+				Mage::register("quotes_data", $model);
+				$this->loadLayout();
+				$this->_setActiveMenu("dailyquote/quotes");
+				$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Manager"), Mage::helper("adminhtml")->__("Quotes Manager"));
+				$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Description"), Mage::helper("adminhtml")->__("Quotes Description"));
+				$this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
+				$this->_addContent($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit"))->_addLeft($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit_tabs"));
+				$this->renderLayout();
+			} 
+			else {
+				Mage::getSingleton("adminhtml/session")->addError(Mage::helper("dailyquote")->__("Item does not exist."));
+				$this->_redirect("*/*/");
+			}
 		}
 
 		public function newAction()
 		{
+    		$this->_title($this->__("DailyQuote"));
+    		$this->_title($this->__("Quotes"));
+    		$this->_title($this->__("New Item"));
+    
+            $id   = $this->getRequest()->getParam("id");
+    		$model  = Mage::getModel("dailyquote/quotes")->load($id);
+    
+    		$data = Mage::getSingleton("adminhtml/session")->getFormData(true);
+    		if (!empty($data)) {
+    			$model->setData($data);
+    		}
 
-		$this->_title($this->__("DailyQuote"));
-		$this->_title($this->__("Quotes"));
-		$this->_title($this->__("New Item"));
-
-        $id   = $this->getRequest()->getParam("id");
-		$model  = Mage::getModel("dailyquote/quotes")->load($id);
-
-		$data = Mage::getSingleton("adminhtml/session")->getFormData(true);
-		if (!empty($data)) {
-			$model->setData($data);
+    		Mage::register("quotes_data", $model);
+    
+    		$this->loadLayout();
+    		$this->_setActiveMenu("dailyquote/quotes");
+    
+    		$this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
+    
+    		$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Manager"), Mage::helper("adminhtml")->__("Quotes Manager"));
+    		$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Description"), Mage::helper("adminhtml")->__("Quotes Description"));
+    
+    		$this->_addContent($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit"))->_addLeft($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit_tabs"));
+    
+    		$this->renderLayout();
 		}
-
-		Mage::register("quotes_data", $model);
-
-		$this->loadLayout();
-		$this->_setActiveMenu("dailyquote/quotes");
-
-		$this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
-
-		$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Manager"), Mage::helper("adminhtml")->__("Quotes Manager"));
-		$this->_addBreadcrumb(Mage::helper("adminhtml")->__("Quotes Description"), Mage::helper("adminhtml")->__("Quotes Description"));
-
-
-		$this->_addContent($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit"))->_addLeft($this->getLayout()->createBlock("dailyquote/adminhtml_quotes_edit_tabs"));
-
-		$this->renderLayout();
-
-		}
+        
 		public function saveAction()
 		{
-
 			$post_data=$this->getRequest()->getPost();
+			if ($post_data)
+            {
+				try
+                {
+                    $lessExb = Mage::getModel("dailyquote/quotes")->getCollection()
+                        ->setOrder('exhibition', 'DESC')
+                        ->getLastItem()
+                        ->getExhibition();
+                    
+					$model = Mage::getModel("dailyquote/quotes")
+					->addData($post_data)
+					->setId($this->getRequest()->getParam("id"))
+                    ->setQuoteTitle($post_data["quote_title"])
+                    ->setQuoteText($post_data["quote_text"])
+                    ->setExhibition($lessExb)
+					->save();
 
+					Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Quotes was successfully saved"));
+					Mage::getSingleton("adminhtml/session")->setQuotesData(false);
 
-				if ($post_data) {
-
-					try {
-
-						
-
-						$model = Mage::getModel("dailyquote/quotes")
-						->addData($post_data)
-						->setId($this->getRequest()->getParam("id"))
-						->save();
-
-						Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Quotes was successfully saved"));
-						Mage::getSingleton("adminhtml/session")->setQuotesData(false);
-
-						if ($this->getRequest()->getParam("back")) {
-							$this->_redirect("*/*/edit", array("id" => $model->getId()));
-							return;
-						}
-						$this->_redirect("*/*/");
+					if ($this->getRequest()->getParam("back")) {
+						$this->_redirect("*/*/edit", array("id" => $model->getId()));
 						return;
-					} 
-					catch (Exception $e) {
-						Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
-						Mage::getSingleton("adminhtml/session")->setQuotesData($this->getRequest()->getPost());
-						$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
-					return;
 					}
-
+					$this->_redirect("*/*/");
+					return;
 				}
-				$this->_redirect("*/*/");
+				catch (Exception $e)
+                {
+    				Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
+    				Mage::getSingleton("adminhtml/session")->setQuotesData($this->getRequest()->getPost());
+    				$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
+					return;
+				}
+			}
+			$this->_redirect("*/*/");
 		}
-
-
 
 		public function deleteAction()
 		{
-				if( $this->getRequest()->getParam("id") > 0 ) {
-					try {
-						$model = Mage::getModel("dailyquote/quotes");
-						$model->setId($this->getRequest()->getParam("id"))->delete();
-						Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully deleted"));
-						$this->_redirect("*/*/");
-					} 
-					catch (Exception $e) {
-						Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
-						$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
-					}
+			if( $this->getRequest()->getParam("id") > 0 ) {
+				try
+                {
+					$model = Mage::getModel("dailyquote/quotes");
+					$model->setId($this->getRequest()->getParam("id"))->delete();
+					Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully deleted"));
+					$this->_redirect("*/*/");
+				} 
+				catch (Exception $e)
+                {
+					Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
+					$this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
 				}
-				$this->_redirect("*/*/");
+			}
+			$this->_redirect("*/*/");
 		}
 
-		
 		public function massRemoveAction()
 		{
-			try {
+			try 
+            {
 				$ids = $this->getRequest()->getPost('quote_ids', array());
-				foreach ($ids as $id) {
+				foreach ($ids as $id)
+                {
                       $model = Mage::getModel("dailyquote/quotes");
 					  $model->setId($id)->delete();
 				}
 				Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item(s) was successfully removed"));
 			}
-			catch (Exception $e) {
+			catch (Exception $e)
+            {
 				Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
 			}
 			$this->_redirect('*/*/');
 		}
-			
+        
 		/**
 		 * Export order grid to CSV format
 		 */

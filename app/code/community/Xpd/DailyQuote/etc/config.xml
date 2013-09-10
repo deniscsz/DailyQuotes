@@ -68,11 +68,6 @@
 		<title>DailyQuote</title>
 		<sort_order>100</sort_order>
 		<children>
-		  <dailyquotebackend module="dailyquote">
-			<title>Daily Quotes</title>
-			<sort_order>0</sort_order>
-			<action>dailyquote/adminhtml_dailyquotebackend</action>
-		  </dailyquotebackend>
 		  <quotes module="dailyquote">
 		    <title>Manage Quotes</title>
 			<sort_order>0</sort_order>
@@ -92,9 +87,7 @@
 			  <title>DailyQuote</title>
 			  <sort_order>1000</sort_order>
 			  <children>
-		  <dailyquotebackend translate="title">
-			<title>Daily Quotes</title>
-		  </dailyquotebackend>
+		  
 		  <quotes translate="title">
 			<title>Manage Quotes</title>
 			<sort_order>0</sort_order>
@@ -112,5 +105,26 @@
 		</dailyquote>
 	  </updates>
 	</layout>
+    <translate>
+      <modules>
+        <Xpd_DailyQuote>
+          <files>
+            <default>Xpd_DailyQuote.csv</default>
+          </files>
+        </Xpd_DailyQuote>
+      </modules>
+    </translate>
   </adminhtml>
+  <crontab>
+    <jobs>
+      <xpd_dailyquote>
+        <schedule>
+          <cron_expr>0 1 * * *</cron_expr>
+        </schedule>
+        <run>
+          <model>dailyquote/quotes::changeQuote</model>
+        </run>
+      </xpd_dailyquote>
+    </jobs>
+  </crontab>
 </config> 

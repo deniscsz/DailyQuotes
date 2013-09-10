@@ -29,7 +29,7 @@ class Xpd_DailyQuote_Block_Adminhtml_Quotes_Grid extends Mage_Adminhtml_Block_Wi
 				));
                 
 				$this->addColumn("quote_title", array(
-				"header" => Mage::helper("dailyquote")->__("Title"),
+				"header" => Mage::helper("dailyquote")->__("Author"),
 				"index" => "quote_title",
 				));
 				$this->addColumn("quote_text", array(

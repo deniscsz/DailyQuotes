@@ -10,13 +10,17 @@ class Xpd_DailyQuote_Block_Adminhtml_Quotes_Edit_Tab_Form extends Mage_Adminhtml
 
 				
 						$fieldset->addField("quote_title", "text", array(
-						"label" => Mage::helper("dailyquote")->__("Title"),
-						"name" => "quote_title",
+    						"label" => Mage::helper("dailyquote")->__("Author"),
+                            "required"  => true,
+                            "class" => "required-entry",
+    						"name" => "quote_title",
 						));
 					
 						$fieldset->addField("quote_text", "text", array(
-						"label" => Mage::helper("dailyquote")->__("Quote"),
-						"name" => "quote_text",
+    						"label" => Mage::helper("dailyquote")->__("Quote"),
+                            "required"  => true,
+                            "class" => "required-entry",
+    						"name" => "quote_text",
 						));
 					
 
