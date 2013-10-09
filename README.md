@@ -10,3 +10,11 @@ Instruções
 
 - Enviar todos os arquivos para a pasta raiz do Magento.
 - Certifica-se de que o Cron do Magento está rodando.
+
+Bugs?
+--------------
+Utilize o próprio GitHub para reportar problemas ou entre em contato comigo via email: denis dot spalenza (at) xpdev dot com dot br
+
+Licença
+--------------
+Todo commit desse repositório está sob a lincença OSL-3.0, veja VF_LICENSE.txt
